@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kr.yjkim.book_search.adapter.ListFragmentAdapter
+import kr.yjkim.book_search.adapter.BookListAdapter
 import kr.yjkim.book_search.databinding.FragmentListBinding
 
 class ListFragment: Fragment() {
@@ -16,7 +16,7 @@ class ListFragment: Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ListFragmentAdapter
+    private lateinit var adapter: BookListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
@@ -30,7 +30,7 @@ class ListFragment: Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val bookList = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13") // demo
-        adapter = ListFragmentAdapter(bookList)
+        adapter = BookListAdapter(bookList)
         recyclerView.adapter = adapter
     }
 
