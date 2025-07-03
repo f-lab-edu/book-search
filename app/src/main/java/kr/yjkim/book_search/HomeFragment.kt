@@ -1,15 +1,14 @@
 package kr.yjkim.book_search
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kr.yjkim.book_search.databinding.FragmentHomeBinding
+import kr.yjkim.book_search.extension.hideKeyboard
 
 class HomeFragment: Fragment() {
 
@@ -26,9 +25,7 @@ class HomeFragment: Fragment() {
         binding.tlSearch.editText?.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 v.clearFocus()
-                // keyboard close
-                val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(v.windowToken, 0)
+                v.hideKeyboard()
                 // navigate layout
                 findNavController().navigate(R.id.list)
                 true
