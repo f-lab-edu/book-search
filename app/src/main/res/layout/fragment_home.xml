@@ -56,7 +56,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
-        android:text="어떤 책을 찾고 계신가요?"
+        android:text="@string/tv_search"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@id/guide_tv_right"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="@id/guide_tv_right"
         app:layout_constraintStart_toStartOf="@id/guide_tv_left"
         app:layout_constraintTop_toBottomOf="@id/tv_search"
-        app:placeholderText="제목,유형,작가,출판사 등"
+        app:placeholderText="@string/ph_tl_search"
         app:startIconDrawable="@drawable/ic_search_24">
 
         <com.google.android.material.textfield.TextInputEditText
