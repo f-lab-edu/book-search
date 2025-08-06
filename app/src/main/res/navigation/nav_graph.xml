@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="kr.yjkim.book_search.HomeFragment"
+        android:name="kr.yjkim.book_search.ui.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_list"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/list"
-        android:name="kr.yjkim.book_search.ListFragment"
+        android:name="kr.yjkim.book_search.ui.ListFragment"
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_list_to_info"
@@ -23,6 +23,6 @@
     </fragment>
     <fragment
         android:id="@+id/info"
-        android:name="kr.yjkim.book_search.InfoFragment"
+        android:name="kr.yjkim.book_search.ui.InfoFragment"
         tools:layout="@layout/fragment_info" />
 </navigation>

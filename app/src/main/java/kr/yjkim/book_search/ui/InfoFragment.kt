@@ -1,4 +1,4 @@
-package kr.yjkim.book_search
+package kr.yjkim.book_search.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
