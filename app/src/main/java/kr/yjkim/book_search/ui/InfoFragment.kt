@@ -1,13 +1,13 @@
 package kr.yjkim.book_search.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import kr.yjkim.book_search.databinding.FragmentInfoBinding
 
-class InfoFragment : Fragment() {
+class InfoFragment: Fragment() {
 
     private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
