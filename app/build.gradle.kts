@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.serialization)
+    id("kotlin-kapt")
 }
 
 android {
@@ -47,4 +48,10 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.bundles.navigation.ktx)
+
+    // Retrofit
+    implementation(libs.bundles.retrofit)
+    // Moshi
+    implementation(libs.moshi.kotlin)
+    kapt(libs.moshi.kotlin.codegen)
 }
