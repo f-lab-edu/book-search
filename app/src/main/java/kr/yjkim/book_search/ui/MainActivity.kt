@@ -2,15 +2,22 @@ package kr.yjkim.book_search
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import kr.yjkim.book_search.R
+import kr.yjkim.book_search.data.MyRepository
 import kr.yjkim.book_search.databinding.ActivityMainBinding
 
 class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MyViewModel by viewModels {
+        MyViewModelFactory(MyRepository())
+    }
+
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +25,9 @@ class MainActivity: AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
 
         toolbar = binding.toolbar
         setSupportActionBar(toolbar)

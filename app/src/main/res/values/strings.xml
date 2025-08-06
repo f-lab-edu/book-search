@@ -3,4 +3,6 @@
 
     <string name="tv_search">어떤 책을 찾고 계신가요?</string>
     <string name="ph_tl_search">제목,유형,작가,출판사 등</string>
+    <string name="toolbar_list_title">\"%1$s\" 검색 결과</string>
+
 </resources>
