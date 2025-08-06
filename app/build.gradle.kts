@@ -1,9 +1,17 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.serialization)
     id("kotlin-kapt")
 }
+
+val localProperties = Properties().apply {
+    load(rootProject.file("local.properties").inputStream())
+}
+
+val kakaoApiKey: String = localProperties.getProperty("kakao_api_key")
 
 android {
     namespace = "kr.yjkim.book_search"
@@ -17,6 +25,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "REST_API_KEY", "\"$kakaoApiKey\"")
     }
 
     buildTypes {
@@ -34,6 +44,8 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
+        dataBinding = true
         viewBinding = true
     }
 }
