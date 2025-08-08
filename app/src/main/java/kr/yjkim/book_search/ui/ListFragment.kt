@@ -22,7 +22,7 @@ class ListFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
-        val toolbarTitleText = getString(R.string.toolbar_list_title, vm.keyword.toString())
+        val toolbarTitleText = getString(R.string.toolbar_list_title, vm.keyword)
         (requireActivity() as MainActivity).setToolbar(toolbarTitleText, true)
 
         vm.books.observe(viewLifecycleOwner) { books ->
