@@ -1,8 +1,8 @@
 package kr.yjkim.book_search.ui
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.launch
 import kr.yjkim.book_search.data.MyRepository
 
@@ -20,14 +20,14 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
             repository.searchKeyword(word)
         }
     }
-}
 
-class MyViewModelFactory(private val repository: MyRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MyViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return MyViewModel(repository) as T
+    companion object {
+        fun create(repository: MyRepository): ViewModelProvider.Factory {
+            return viewModelFactory {
+                initializer {
+                    MyViewModel(repository)
+                }
+            }
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

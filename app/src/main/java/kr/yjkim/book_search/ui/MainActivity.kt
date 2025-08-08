@@ -17,7 +17,7 @@ class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MyViewModel by viewModels {
-        MyViewModelFactory(MyRepository())
+        MyViewModel.create(MyRepository())
     }
 
     private lateinit var toolbar: Toolbar
