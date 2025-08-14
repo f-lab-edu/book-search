@@ -3,23 +3,17 @@ package kr.yjkim.book_search.ui
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kr.yjkim.book_search.R
-import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.databinding.ActivityMainBinding
 
 class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MyViewModel by viewModels {
-        MyViewModel.create(BookSearchRepository())
-    }
-
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +21,6 @@ class MainActivity: AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.lifecycleOwner = this
-        binding.vm = viewModel
 
         toolbar = binding.toolbar
         setSupportActionBar(toolbar)

@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.databinding.FragmentHomeBinding
 import kr.yjkim.book_search.extension.hideKeyboard
 
@@ -15,7 +16,9 @@ class HomeFragment: Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MyViewModel by activityViewModels()
+    private val vm: HomeViewModel by viewModels {
+        HomeViewModel.create(BookSearchRepository)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -24,12 +27,13 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.tlSearch.editText?.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 v.clearFocus()
                 v.hideKeyboard()
                 // search
-                viewModel.searchKeyword(v.text.toString())
+                vm.searchKeyword(v.text.toString())
                 // navigate layout
                 val action = HomeFragmentDirections.actionHomeToList(v.text.toString())
                 findNavController().navigate(action)

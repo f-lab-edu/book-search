@@ -1,16 +1,21 @@
 package kr.yjkim.book_search.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CancellationException
 import kr.yjkim.book_search.data.network.KakaoService
 import kr.yjkim.book_search.data.network.RetrofitClient
 import kr.yjkim.book_search.data.schema.BookItem
 
-class BookSearchRepository {
+object BookSearchRepository {
 
     private val kakaoService: KakaoService = RetrofitClient.kakaoService
 
-    suspend fun searchKeyword(keyword: String): List<BookItem> {
-        return try {
+    private val _bookList: MutableLiveData<List<BookItem>> = MutableLiveData()
+    val bookList: LiveData<List<BookItem>> get() = _bookList
+
+    suspend fun searchKeyword(keyword: String) {
+        _bookList.value = try {
             val bookResponse = kakaoService.getBookList(keyword)
             bookResponse.bookList
         } catch (e: CancellationException) {
