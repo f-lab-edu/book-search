@@ -11,12 +11,19 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_list"
-            app:destination="@id/list" />
+            app:destination="@id/list">
+            <argument
+                android:name="keyword"
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/list"
         android:name="kr.yjkim.book_search.ui.ListFragment"
         tools:layout="@layout/fragment_list">
+        <argument
+            android:name="keyword"
+            app:argType="string" />
         <action
             android:id="@+id/action_list_to_info"
             app:destination="@id/info" />

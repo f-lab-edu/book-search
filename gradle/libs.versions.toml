@@ -30,6 +30,7 @@ moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-code
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
+navigation-safeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationKtx" }
 
 [bundles]
 navigation-ktx = ["navigation-fragment-ktx", "navigation-ui-ktx"]

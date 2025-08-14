@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.navigation.safeArgs)
     id("kotlin-kapt")
 }
 
