@@ -11,13 +11,8 @@ class BookSearchRepository {
 
     suspend fun searchKeyword(keyword: String): List<BookItem> {
         return try {
-            val response = kakaoService.getBookList(keyword)
-            if (response.isSuccessful) {
-                val result = response.body()!!
-                result.bookList
-            } else {
-                emptyList()
-            }
+            val bookResponse = kakaoService.getBookList(keyword)
+            bookResponse.bookList
         } catch (e: CancellationException) {
             throw e
         } catch (_: Exception) {
