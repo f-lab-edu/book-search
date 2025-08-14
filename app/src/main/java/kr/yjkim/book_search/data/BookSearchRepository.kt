@@ -6,7 +6,7 @@ import kr.yjkim.book_search.data.network.KakaoService
 import kr.yjkim.book_search.data.network.RetrofitClient
 import kr.yjkim.book_search.data.schema.BookItem
 
-class MyRepository {
+class BookSearchRepository {
 
     private val kakaoService: KakaoService = RetrofitClient.kakaoService
 

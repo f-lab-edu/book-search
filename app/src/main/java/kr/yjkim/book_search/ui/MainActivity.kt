@@ -10,14 +10,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kr.yjkim.book_search.R
-import kr.yjkim.book_search.data.MyRepository
+import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.databinding.ActivityMainBinding
 
 class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MyViewModel by viewModels {
-        MyViewModel.create(MyRepository())
+        MyViewModel.create(BookSearchRepository())
     }
 
     private lateinit var toolbar: Toolbar

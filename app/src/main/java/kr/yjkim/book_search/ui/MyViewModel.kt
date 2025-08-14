@@ -4,9 +4,9 @@ import androidx.lifecycle.*
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.launch
-import kr.yjkim.book_search.data.MyRepository
+import kr.yjkim.book_search.data.BookSearchRepository
 
-class MyViewModel(private val repository: MyRepository) : ViewModel() {
+class MyViewModel(private val repository: BookSearchRepository): ViewModel() {
 
     private var _keyword: String = ""
     val keyword: String
@@ -22,7 +22,7 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
     }
 
     companion object {
-        fun create(repository: MyRepository): ViewModelProvider.Factory {
+        fun create(repository: BookSearchRepository): ViewModelProvider.Factory {
             return viewModelFactory {
                 initializer {
                     MyViewModel(repository)
