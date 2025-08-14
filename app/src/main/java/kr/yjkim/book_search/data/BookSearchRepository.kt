@@ -1,5 +1,6 @@
 package kr.yjkim.book_search.data
 
+import kotlinx.coroutines.CancellationException
 import kr.yjkim.book_search.data.network.KakaoService
 import kr.yjkim.book_search.data.network.RetrofitClient
 import kr.yjkim.book_search.data.schema.BookItem
@@ -17,7 +18,9 @@ class BookSearchRepository {
             } else {
                 emptyList()
             }
-        } catch (e: Exception) {
+        } catch (e: CancellationException) {
+            throw e
+        } catch (_: Exception) {
             emptyList()
         }
     }
