@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.launch
 import kr.yjkim.book_search.data.BookSearchRepository
+import kr.yjkim.book_search.data.schema.BookItem
 
 class MyViewModel(private val repository: BookSearchRepository): ViewModel() {
 
@@ -12,12 +13,13 @@ class MyViewModel(private val repository: BookSearchRepository): ViewModel() {
     val keyword: String
         get() = _keyword
 
-    val books = repository.books
+    private val _books: MutableLiveData<List<BookItem>> = MutableLiveData()
+    val books: LiveData<List<BookItem>> get() = _books
 
     fun searchKeyword(word: String) {
         _keyword = word
         viewModelScope.launch {
-            repository.searchKeyword(word)
+            _books.value = repository.searchKeyword(word)
         }
     }
 
