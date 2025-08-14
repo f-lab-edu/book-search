@@ -2,13 +2,13 @@ package kr.yjkim.book_search.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kr.yjkim.book_search.data.schema.BookItem
 import kr.yjkim.book_search.databinding.ItemBookListBinding
 
-class BookListAdapter: RecyclerView.Adapter<BookListViewHolder>() {
-
-    private val bookList: MutableList<BookItem> = mutableListOf()
+class BookListAdapter: ListAdapter<BookItem, BookListViewHolder>(BookDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListViewHolder {
         val binding = ItemBookListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -16,16 +16,7 @@ class BookListAdapter: RecyclerView.Adapter<BookListViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: BookListViewHolder, position: Int) {
-        val bookItem = bookList[position]
-        holder.bind(bookItem)
-    }
-
-    override fun getItemCount(): Int = bookList.size
-
-    fun submitList(list: List<BookItem>) {
-        bookList.clear()
-        bookList.addAll(list)
-        notifyDataSetChanged()
+        holder.bind(getItem(position))
     }
 }
 
@@ -36,5 +27,15 @@ class BookListViewHolder(private val binding: ItemBookListBinding): RecyclerView
         binding.tvStc.text = item.contents
 
         // thumbnail: Glide...
+    }
+}
+
+class BookDiffCallback: DiffUtil.ItemCallback<BookItem>() {
+    override fun areItemsTheSame(oldItem: BookItem, newItem: BookItem): Boolean {
+        return oldItem.isbn == newItem.isbn
+    }
+
+    override fun areContentsTheSame(oldItem: BookItem, newItem: BookItem): Boolean {
+        return oldItem == newItem
     }
 }
