@@ -6,6 +6,7 @@ import kotlinx.coroutines.CancellationException
 import kr.yjkim.book_search.data.network.KakaoService
 import kr.yjkim.book_search.data.network.RetrofitClient
 import kr.yjkim.book_search.data.schema.BookItem
+import kr.yjkim.book_search.util.NoDataException
 
 object BookSearchRepository {
 
@@ -13,15 +14,23 @@ object BookSearchRepository {
 
     private val _bookList: MutableLiveData<List<BookItem>> = MutableLiveData()
     val bookList: LiveData<List<BookItem>> get() = _bookList
+    private val _errorState: MutableLiveData<Throwable?> = MutableLiveData()
+    val errorState: LiveData<Throwable?> get() = _errorState
 
     suspend fun searchKeyword(keyword: String) {
-        _bookList.value = try {
+        try {
             val bookResponse = kakaoService.getBookList(keyword)
-            bookResponse.bookList
+            bookResponse.bookList.let { list ->
+                if (list.isNotEmpty()) {
+                    _bookList.value = list
+                } else {
+                    _errorState.postValue(NoDataException())
+                }
+            }
         } catch (e: CancellationException) {
             throw e
-        } catch (_: Exception) {
-            emptyList()
+        } catch (e: Exception) {
+            _errorState.postValue(e)
         }
     }
 }
