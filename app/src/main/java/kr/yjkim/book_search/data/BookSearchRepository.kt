@@ -18,6 +18,8 @@ object BookSearchRepository {
     val errorState: LiveData<Throwable?> get() = _errorState
 
     suspend fun searchKeyword(keyword: String) {
+        _errorState.postValue(null)
+
         try {
             val bookResponse = kakaoService.getBookList(keyword)
             bookResponse.bookList.let { list ->
