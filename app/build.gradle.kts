@@ -1,8 +1,18 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.navigation.safeArgs)
+    id("kotlin-kapt")
 }
+
+val localProperties = Properties().apply {
+    load(rootProject.file("local.properties").inputStream())
+}
+
+val kakaoApiKey: String = localProperties.getProperty("kakao_api_key")
 
 android {
     namespace = "kr.yjkim.book_search"
@@ -16,6 +26,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "REST_API_KEY", "\"$kakaoApiKey\"")
     }
 
     buildTypes {
@@ -24,15 +36,19 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
 
     buildFeatures {
+        buildConfig = true
+        dataBinding = true
         viewBinding = true
     }
 }
@@ -47,4 +63,10 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.bundles.navigation.ktx)
+
+    // Retrofit
+    implementation(libs.bundles.retrofit)
+    // Moshi
+    implementation(libs.moshi.kotlin)
+    kapt(libs.moshi.kotlin.codegen)
 }

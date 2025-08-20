@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".ui.HomeFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_img_left"
@@ -56,7 +56,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
-        android:text="@string/tv_search"
+        android:text="@string/search_title"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@id/guide_tv_right"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="@id/guide_tv_right"
         app:layout_constraintStart_toStartOf="@id/guide_tv_left"
         app:layout_constraintTop_toBottomOf="@id/tv_search"
-        app:placeholderText="@string/ph_tl_search"
+        app:placeholderText="@string/search_placeholder"
         app:startIconDrawable="@drawable/ic_search_24">
 
         <com.google.android.material.textfield.TextInputEditText

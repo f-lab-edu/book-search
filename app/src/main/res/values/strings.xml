@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Book Search</string>
 
-    <string name="tv_search">어떤 책을 찾고 계신가요?</string>
-    <string name="ph_tl_search">제목,유형,작가,출판사 등</string>
+    <string name="dialog_message_exit">종료하시겠습니까?</string>
+    <string name="dialog_btn_yes_exit">예(종료)</string>
+    <string name="dialog_btn_no">아니오</string>
+
+    <string name="search_title">어떤 책을 찾고 계신가요?</string>
+    <string name="search_placeholder">제목,작가,출판사 등</string>
+
+    <string name="toolbar_list_title">\"%1$s\" 검색 결과</string>
+
 </resources>
