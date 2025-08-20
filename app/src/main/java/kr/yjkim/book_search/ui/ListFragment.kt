@@ -37,6 +37,13 @@ class ListFragment: Fragment() {
             adapter.submitList(books)
         }
 
+        vm.errorMessage.observe(viewLifecycleOwner) { message ->
+            message?.let {
+                binding.errorText.text = getString(it)
+                binding.layError.visibility = View.VISIBLE
+            }
+        }
+
         val toolbarTitleText = getString(R.string.toolbar_list_title, args.keyword)
         (requireActivity() as MainActivity).setToolbar(toolbarTitleText, true)
 
