@@ -35,12 +35,17 @@ class ListFragment: Fragment() {
 
         vm.bookList.observe(viewLifecycleOwner) { books ->
             adapter.submitList(books)
+            if (books.isNotEmpty()) {
+                binding.layError.visibility = View.GONE
+            }
         }
 
         vm.errorMessage.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                binding.errorText.text = getString(it)
+            if (message != null) {
+                binding.errorText.text = getString(message)
                 binding.layError.visibility = View.VISIBLE
+            } else {
+                binding.layError.visibility = View.GONE
             }
         }
 
