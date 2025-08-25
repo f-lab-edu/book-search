@@ -28,6 +28,10 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        vm.keyword.observe(viewLifecycleOwner) { keyword ->
+            binding.tlSearch.editText?.setText(keyword)
+        }
+
         binding.tlSearch.editText?.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 v.clearFocus()
