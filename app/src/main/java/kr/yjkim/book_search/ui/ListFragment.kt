@@ -12,6 +12,8 @@ import kr.yjkim.book_search.R
 import kr.yjkim.book_search.adapter.BookListAdapter
 import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.databinding.FragmentListBinding
+import okio.IOException
+import retrofit2.HttpException
 
 class ListFragment: Fragment() {
 
@@ -33,20 +35,20 @@ class ListFragment: Fragment() {
 
         val adapter = BookListAdapter()
 
-        vm.bookList.observe(viewLifecycleOwner) { books ->
-            adapter.submitList(books)
-            if (books.isNotEmpty()) {
-                binding.layError.visibility = View.GONE
-            }
-        }
-
-        vm.errorMessage.observe(viewLifecycleOwner) { message ->
-            if (message != null) {
-                binding.errorText.text = getString(message)
-                binding.layError.visibility = View.VISIBLE
-            } else {
-                binding.layError.visibility = View.GONE
-            }
+        vm.searchResult.observe(viewLifecycleOwner) { result ->
+            result.fold(
+                onSuccess = { bookList ->
+                    adapter.submitList(bookList)
+                    binding.layError.visibility = View.GONE
+                },
+                onFailure = { e ->
+                    binding.errorText.text = when (e) {
+                        is IOException -> getString(R.string.error_network)
+                        is HttpException -> getString(R.string.error_server)
+                        else -> getString(R.string.error_no_data)
+                    }
+                    binding.layError.visibility = View.VISIBLE
+                })
         }
 
         val toolbarTitleText = getString(R.string.toolbar_list_title, args.keyword)
