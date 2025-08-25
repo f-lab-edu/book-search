@@ -38,14 +38,19 @@ class ListFragment: Fragment() {
         vm.searchResult.observe(viewLifecycleOwner) { result ->
             result.fold(
                 onSuccess = { bookList ->
-                    adapter.submitList(bookList)
-                    binding.layError.visibility = View.GONE
+                    if (bookList.isEmpty()) {
+                        binding.errorText.text = getString(R.string.error_no_data)
+                        binding.layError.visibility = View.VISIBLE
+                    } else {
+                        binding.layError.visibility = View.GONE
+                        adapter.submitList(bookList)
+                    }
                 },
                 onFailure = { e ->
                     binding.errorText.text = when (e) {
                         is IOException -> getString(R.string.error_network)
                         is HttpException -> getString(R.string.error_server)
-                        else -> getString(R.string.error_no_data)
+                        else -> getString(R.string.error_unknown)
                     }
                     binding.layError.visibility = View.VISIBLE
                 })

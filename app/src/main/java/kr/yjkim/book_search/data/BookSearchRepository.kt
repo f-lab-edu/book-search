@@ -6,7 +6,6 @@ import kotlinx.coroutines.CancellationException
 import kr.yjkim.book_search.data.network.KakaoService
 import kr.yjkim.book_search.data.network.RetrofitClient
 import kr.yjkim.book_search.data.schema.BookItem
-import kr.yjkim.book_search.util.NoDataException
 
 object BookSearchRepository {
 
@@ -18,13 +17,7 @@ object BookSearchRepository {
     suspend fun searchKeyword(keyword: String) {
         try {
             val bookResponse = kakaoService.getBookList(keyword)
-            _searchResult.value = bookResponse.bookList.let { list ->
-                if (list.isNotEmpty()) {
-                    Result.success(list)
-                } else {
-                    Result.failure(NoDataException())
-                }
-            }
+            _searchResult.value = Result.success(bookResponse.bookList)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
