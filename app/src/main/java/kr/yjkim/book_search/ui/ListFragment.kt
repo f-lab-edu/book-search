@@ -57,6 +57,10 @@ class ListFragment: Fragment() {
         val recyclerView = binding.recyclerBook
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+
+        binding.btnTryAgain.setOnClickListener {
+            HomeViewModel(BookSearchRepository).searchKeyword(args.keyword)
+        }
     }
 
     override fun onDestroyView() {
