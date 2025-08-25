@@ -40,6 +40,7 @@ class ListFragment: Fragment() {
                 onSuccess = { bookList ->
                     if (bookList.isEmpty()) {
                         binding.errorText.text = getString(R.string.error_no_data)
+                        binding.btnTryAgain.visibility = View.INVISIBLE
                         binding.layError.visibility = View.VISIBLE
                     } else {
                         binding.layError.visibility = View.GONE
@@ -52,6 +53,7 @@ class ListFragment: Fragment() {
                         is HttpException -> getString(R.string.error_server)
                         else -> getString(R.string.error_unknown)
                     }
+                    binding.btnTryAgain.visibility = View.VISIBLE
                     binding.layError.visibility = View.VISIBLE
                 })
         }
