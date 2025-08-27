@@ -11,17 +11,17 @@ object BookSearchRepository {
 
     private val kakaoService: KakaoService = RetrofitClient.kakaoService
 
-    private val _bookList: MutableLiveData<List<BookItem>> = MutableLiveData()
-    val bookList: LiveData<List<BookItem>> get() = _bookList
+    private val _searchResult: MutableLiveData<Result<List<BookItem>>> = MutableLiveData()
+    val searchResult: LiveData<Result<List<BookItem>>> get() = _searchResult
 
     suspend fun searchKeyword(keyword: String) {
-        _bookList.value = try {
+        try {
             val bookResponse = kakaoService.getBookList(keyword)
-            bookResponse.bookList
+            _searchResult.value = Result.success(bookResponse.bookList)
         } catch (e: CancellationException) {
             throw e
-        } catch (_: Exception) {
-            emptyList()
+        } catch (e: Exception) {
+            _searchResult.postValue(Result.failure(e))
         }
     }
 }

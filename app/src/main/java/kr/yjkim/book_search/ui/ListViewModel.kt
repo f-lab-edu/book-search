@@ -3,14 +3,22 @@ package kr.yjkim.book_search.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import kotlinx.coroutines.launch
 import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.data.schema.BookItem
 
-class ListViewModel(repository: BookSearchRepository): ViewModel() {
+class ListViewModel(private val repository: BookSearchRepository): ViewModel() {
 
-    val bookList: LiveData<List<BookItem>> = repository.bookList
+    val searchResult: LiveData<Result<List<BookItem>>> = repository.searchResult
+
+    fun retry(keyword: String) {
+        viewModelScope.launch {
+            repository.searchKeyword(keyword)
+        }
+    }
 
     companion object {
         fun create(repo: BookSearchRepository): ViewModelProvider.Factory {

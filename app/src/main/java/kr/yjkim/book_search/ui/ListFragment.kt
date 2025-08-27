@@ -12,6 +12,8 @@ import kr.yjkim.book_search.R
 import kr.yjkim.book_search.adapter.BookListAdapter
 import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.databinding.FragmentListBinding
+import okio.IOException
+import retrofit2.HttpException
 
 class ListFragment: Fragment() {
 
@@ -33,8 +35,27 @@ class ListFragment: Fragment() {
 
         val adapter = BookListAdapter()
 
-        vm.bookList.observe(viewLifecycleOwner) { books ->
-            adapter.submitList(books)
+        vm.searchResult.observe(viewLifecycleOwner) { result ->
+            result.fold(
+                onSuccess = { bookList ->
+                    if (bookList.isEmpty()) {
+                        binding.errorText.text = getString(R.string.error_no_data)
+                        binding.btnTryAgain.visibility = View.INVISIBLE
+                        binding.layError.visibility = View.VISIBLE
+                    } else {
+                        binding.layError.visibility = View.GONE
+                        adapter.submitList(bookList)
+                    }
+                },
+                onFailure = { e ->
+                    binding.errorText.text = when (e) {
+                        is IOException -> getString(R.string.error_network)
+                        is HttpException -> getString(R.string.error_server)
+                        else -> getString(R.string.error_unknown)
+                    }
+                    binding.btnTryAgain.visibility = View.VISIBLE
+                    binding.layError.visibility = View.VISIBLE
+                })
         }
 
         val toolbarTitleText = getString(R.string.toolbar_list_title, args.keyword)
@@ -43,6 +64,10 @@ class ListFragment: Fragment() {
         val recyclerView = binding.recyclerBook
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+
+        binding.btnTryAgain.setOnClickListener {
+            vm.retry(args.keyword)
+        }
     }
 
     override fun onDestroyView() {
