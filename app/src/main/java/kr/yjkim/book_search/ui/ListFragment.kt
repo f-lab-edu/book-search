@@ -66,7 +66,7 @@ class ListFragment: Fragment() {
         recyclerView.adapter = adapter
 
         binding.btnTryAgain.setOnClickListener {
-            HomeViewModel(BookSearchRepository).searchKeyword(args.keyword)
+            vm.retry(args.keyword)
         }
     }
 
