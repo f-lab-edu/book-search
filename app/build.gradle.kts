@@ -71,4 +71,6 @@ dependencies {
     kapt(libs.moshi.kotlin.codegen)
     // Coil
     implementation(libs.bundles.coil)
+    // RecyclerView
+    implementation(libs.androidx.recyclerview)
 }
