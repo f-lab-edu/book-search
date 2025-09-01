@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil3.SingletonImageLoader
+import coil3.request.ImageRequest
+import coil3.request.target
 import kr.yjkim.book_search.data.schema.BookItem
 import kr.yjkim.book_search.databinding.ItemBookListBinding
 
@@ -26,7 +29,15 @@ class BookListViewHolder(private val binding: ItemBookListBinding): RecyclerView
         binding.tvTitle.text = item.title
         binding.tvStc.text = item.contents
 
-        // thumbnail: Glide...
+        val context = binding.root.context
+        val imageLoader = SingletonImageLoader.get(context)
+
+        val request = ImageRequest.Builder(context)
+            .data(item.thumbnail)
+            .target(binding.img)
+            .build()
+
+        imageLoader.enqueue(request)
     }
 }
 

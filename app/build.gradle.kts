@@ -69,4 +69,6 @@ dependencies {
     // Moshi
     implementation(libs.moshi.kotlin)
     kapt(libs.moshi.kotlin.codegen)
+    // Coil
+    implementation(libs.bundles.coil)
 }
