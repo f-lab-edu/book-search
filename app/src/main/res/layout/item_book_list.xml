@@ -30,12 +30,12 @@
         android:id="@+id/img"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:src="@drawable/ic_img_default_24"
         app:layout_constraintBottom_toBottomOf="@id/tv_stc"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="@id/guide_img_right"
         app:layout_constraintStart_toStartOf="@id/guide_left"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_img_default_24"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_title"
