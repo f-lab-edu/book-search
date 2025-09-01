@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.yjkim.book_search.R
 import kr.yjkim.book_search.adapter.BookListAdapter
@@ -62,7 +64,9 @@ class ListFragment: Fragment() {
         (requireActivity() as MainActivity).setToolbar(toolbarTitleText, true)
 
         val recyclerView = binding.recyclerBook
+        val itemDivider = DividerItemDecoration(requireContext(), LinearLayout.VERTICAL)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.addItemDecoration(itemDivider)
         recyclerView.adapter = adapter
 
         binding.btnTryAgain.setOnClickListener {
