@@ -12,7 +12,9 @@ import coil3.request.target
 import kr.yjkim.book_search.data.schema.BookItem
 import kr.yjkim.book_search.databinding.ItemBookListBinding
 
-class BookListAdapter: ListAdapter<BookItem, BookListViewHolder>(BookDiffCallback()) {
+class BookListAdapter(
+    val onDetailButtonClickHandler: () -> Unit,
+): ListAdapter<BookItem, BookListViewHolder>(BookDiffCallback()) {
 
     private var selectedPosition: Int = -1
 
@@ -41,6 +43,8 @@ class BookListAdapter: ListAdapter<BookItem, BookListViewHolder>(BookDiffCallbac
                 notifyItemChanged(currentPosition)
             }
         }
+
+        holder.binding.btnDetail.setOnClickListener { onDetailButtonClickHandler() }
     }
 }
 
