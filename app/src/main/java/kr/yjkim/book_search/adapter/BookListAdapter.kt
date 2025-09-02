@@ -18,13 +18,8 @@ class BookListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookListViewHolder {
         val binding = ItemBookListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return BookListViewHolder(binding)
-    }
 
-    override fun onBindViewHolder(holder: BookListViewHolder, position: Int) {
-        holder.bind(getItem(position))
-        holder.onSelected(position == selectedPosition)
-
+        val holder = BookListViewHolder(binding)
         holder.binding.root.setOnClickListener {
             // required library: androidx.recyclerview:recyclerview
             val currentPosition = holder.bindingAdapterPosition
@@ -41,6 +36,13 @@ class BookListAdapter(
                 notifyItemChanged(currentPosition)
             }
         }
+
+        return holder
+    }
+
+    override fun onBindViewHolder(holder: BookListViewHolder, position: Int) {
+        holder.bind(getItem(position))
+        holder.onSelected(position == selectedPosition)
 
         holder.binding.btnDetail.setOnClickListener { onDetailButtonClickHandler() }
     }
