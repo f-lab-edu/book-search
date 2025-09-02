@@ -1,14 +1,12 @@
 package kr.yjkim.book_search.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil3.SingletonImageLoader
-import coil3.request.ImageRequest
-import coil3.request.target
+import coil3.load
 import kr.yjkim.book_search.data.schema.BookItem
 import kr.yjkim.book_search.databinding.ItemBookListBinding
 
@@ -53,20 +51,11 @@ class BookListViewHolder(val binding: ItemBookListBinding): RecyclerView.ViewHol
     fun bind(item: BookItem) {
         binding.tvTitle.text = item.title
         binding.tvStc.text = item.contents
-
-        val context = binding.root.context
-        val imageLoader = SingletonImageLoader.get(context)
-
-        val request = ImageRequest.Builder(context)
-            .data(item.thumbnail)
-            .target(binding.img)
-            .build()
-
-        imageLoader.enqueue(request)
+        binding.img.load(item.thumbnail)
     }
 
     fun onSelected(isSelected: Boolean) {
-        binding.laySelect.visibility = if (isSelected) View.VISIBLE else View.INVISIBLE
+        binding.laySelect.isInvisible = !isSelected
     }
 }
 
