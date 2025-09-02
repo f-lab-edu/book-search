@@ -30,12 +30,12 @@
         android:id="@+id/img"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:src="@drawable/ic_img_default_24"
         app:layout_constraintBottom_toBottomOf="@id/tv_stc"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="@id/guide_img_right"
         app:layout_constraintStart_toStartOf="@id/guide_left"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_img_default_24"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -67,11 +67,23 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="내용\n두줄" />
 
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/guide_right"
-        app:layout_constraintStart_toStartOf="@id/guide_left"
-        app:layout_constraintTop_toBottomOf="@id/tv_stc" />
+    <FrameLayout
+        android:id="@+id/lay_select"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gray_99"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/btn_see_detail"
+            android:textSize="16sp" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
