@@ -26,10 +26,18 @@
             app:argType="string" />
         <action
             android:id="@+id/action_list_to_info"
-            app:destination="@id/info" />
+            app:destination="@id/info">
+            <argument
+                android:name="itemId"
+                app:argType="integer" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/info"
         android:name="kr.yjkim.book_search.ui.InfoFragment"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_info">
+        <argument
+            android:name="itemId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
