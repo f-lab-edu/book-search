@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil3.load
 import kr.yjkim.book_search.data.BookSearchRepository
+import kr.yjkim.book_search.data.network.RetrofitClient.moshi
 import kr.yjkim.book_search.data.schema.BookItem
 import kr.yjkim.book_search.databinding.FragmentInfoBinding
 
@@ -30,7 +31,8 @@ class InfoFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        vm.getBookItem(args.itemId)
+        val moshiAdapter = moshi.adapter(BookItem::class.java)
+        val bookItem = moshiAdapter.fromJson(args.bookItemJson)
 
         vm.bookItem.observe(viewLifecycleOwner) { bookItem: BookItem ->
             val toolbarTitleText = bookItem.title

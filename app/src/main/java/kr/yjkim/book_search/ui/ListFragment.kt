@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kr.yjkim.book_search.R
 import kr.yjkim.book_search.adapter.BookListAdapter
 import kr.yjkim.book_search.data.BookSearchRepository
+import kr.yjkim.book_search.data.network.RetrofitClient.moshi
+import kr.yjkim.book_search.data.schema.BookItem
 import kr.yjkim.book_search.databinding.FragmentListBinding
 import okio.IOException
 import retrofit2.HttpException
@@ -36,8 +38,10 @@ class ListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = BookListAdapter { bookItemId ->
-            val action = ListFragmentDirections.actionListToInfo(bookItemId)
+        val adapter = BookListAdapter { bookItem ->
+            val moshiAdapter = moshi.adapter(BookItem::class.java)
+            val bookItemJson = moshiAdapter.toJson(bookItem)
+            val action = ListFragmentDirections.actionListToInfo(bookItemJson)
             findNavController().navigate(action)
         }
 

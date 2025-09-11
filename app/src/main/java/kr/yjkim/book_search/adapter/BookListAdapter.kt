@@ -11,7 +11,7 @@ import kr.yjkim.book_search.data.schema.BookItem
 import kr.yjkim.book_search.databinding.ItemBookListBinding
 
 class BookListAdapter(
-    val onDetailButtonClickHandler: (Int) -> Unit,
+    val onDetailButtonClickHandler: (BookItem) -> Unit,
 ): ListAdapter<BookItem, BookListViewHolder>(BookDiffCallback()) {
 
     private var selectedPosition: Int = -1
@@ -44,7 +44,9 @@ class BookListAdapter(
         holder.bind(getItem(position))
         holder.onSelected(position == selectedPosition)
 
-        holder.binding.btnDetail.setOnClickListener { onDetailButtonClickHandler(position) }
+        holder.binding.btnDetail.setOnClickListener {
+            onDetailButtonClickHandler(getItem(position))
+        }
     }
 }
 
