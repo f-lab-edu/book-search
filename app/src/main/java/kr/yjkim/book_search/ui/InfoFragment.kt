@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil3.load
-import kr.yjkim.book_search.data.network.RetrofitClient.moshi
-import kr.yjkim.book_search.data.schema.BookItem
 import kr.yjkim.book_search.databinding.FragmentInfoBinding
 
 class InfoFragment: Fragment() {
@@ -26,15 +24,11 @@ class InfoFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val moshiAdapter = moshi.adapter(BookItem::class.java)
-        val bookItem = moshiAdapter.fromJson(args.bookItemJson)
-
-        bookItem?.let {
-            val toolbarTitleText = bookItem.title
-            (requireActivity() as MainActivity).setToolbar(toolbarTitleText, true)
-            binding.bookThumbnail.load(bookItem.thumbnail)
-            binding.bookSentence.text = bookItem.contents
-        }
+        val bookItem = args.bookItem
+        val toolbarTitleText = bookItem.title
+        (requireActivity() as MainActivity).setToolbar(toolbarTitleText, true)
+        binding.bookThumbnail.load(bookItem.thumbnail)
+        binding.bookSentence.text = bookItem.contents
     }
 
     override fun onDestroyView() {

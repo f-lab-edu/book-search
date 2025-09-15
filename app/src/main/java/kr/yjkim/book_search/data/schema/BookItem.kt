@@ -2,6 +2,7 @@ package kr.yjkim.book_search.data.schema
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.io.Serializable
 
 @JsonClass(generateAdapter = true)
 data class BookItem(
@@ -17,4 +18,4 @@ data class BookItem(
     @Json(name = "sale_price") val salePrice: Int,
     @Json(name = "thumbnail") val thumbnail: String,
     @Json(name = "status") val status: String,
-)
+): Serializable

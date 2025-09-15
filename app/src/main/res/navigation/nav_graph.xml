@@ -28,8 +28,8 @@
             android:id="@+id/action_list_to_info"
             app:destination="@id/info">
             <argument
-                android:name="bookItemJson"
-                app:argType="string" />
+                android:name="bookItem"
+                app:argType="kr.yjkim.book_search.data.schema.BookItem" />
         </action>
     </fragment>
     <fragment
@@ -37,7 +37,7 @@
         android:name="kr.yjkim.book_search.ui.InfoFragment"
         tools:layout="@layout/fragment_info">
         <argument
-            android:name="bookItemJson"
-            app:argType="string" />
+            android:name="bookItem"
+            app:argType="kr.yjkim.book_search.data.schema.BookItem" />
     </fragment>
 </navigation>
