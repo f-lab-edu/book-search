@@ -36,8 +36,8 @@ class ListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = BookListAdapter {
-            val action = ListFragmentDirections.actionListToInfo()
+        val adapter = BookListAdapter { bookItem ->
+            val action = ListFragmentDirections.actionListToInfo(bookItem)
             findNavController().navigate(action)
         }
 
