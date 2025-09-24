@@ -15,6 +15,7 @@ object BookSearchRepository {
     val searchResult: StateFlow<ResultUiState> get() = _searchResult
 
     suspend fun searchKeyword(keyword: String) {
+        _searchResult.value = ResultUiState.Loading
         try {
             val bookResponse = kakaoService.getBookList(keyword)
             _searchResult.value = ResultUiState.Success(bookResponse.bookList)
