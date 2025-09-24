@@ -8,11 +8,11 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kr.yjkim.book_search.data.BookSearchRepository
-import kr.yjkim.book_search.data.schema.BookItem
+import kr.yjkim.book_search.util.ResultUiState
 
 class ListViewModel(private val repository: BookSearchRepository): ViewModel() {
 
-    val searchResult: StateFlow<Result<List<BookItem>>> = repository.searchResult
+    val searchResult: StateFlow<ResultUiState> = repository.searchResult
 
     fun retry(keyword: String) {
         viewModelScope.launch {

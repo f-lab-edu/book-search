@@ -19,6 +19,7 @@ import kr.yjkim.book_search.R
 import kr.yjkim.book_search.adapter.BookListAdapter
 import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.databinding.FragmentListBinding
+import kr.yjkim.book_search.util.ResultUiState
 import okio.IOException
 import retrofit2.HttpException
 
@@ -47,9 +48,10 @@ class ListFragment: Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.searchResult.collect { result ->
-                    result.fold(
-                        onSuccess = { bookList ->
+                vm.searchResult.collect { uiState ->
+                    when (uiState) {
+                        is ResultUiState.Success -> {
+                            val bookList = uiState.bookList
                             if (bookList.isEmpty()) {
                                 binding.errorText.text = getString(R.string.error_no_data)
                                 binding.btnTryAgain.visibility = View.INVISIBLE
@@ -58,16 +60,24 @@ class ListFragment: Fragment() {
                                 binding.layError.visibility = View.GONE
                                 adapter.submitList(bookList)
                             }
-                        },
-                        onFailure = { e ->
-                            binding.errorText.text = when (e) {
+                            binding.loadingText.visibility = View.GONE
+                        }
+
+                        is ResultUiState.Error -> {
+                            binding.errorText.text = when (uiState.exception) {
                                 is IOException -> getString(R.string.error_network)
                                 is HttpException -> getString(R.string.error_server)
                                 else -> getString(R.string.error_unknown)
                             }
                             binding.btnTryAgain.visibility = View.VISIBLE
                             binding.layError.visibility = View.VISIBLE
-                        })
+                            binding.loadingText.visibility = View.GONE
+                        }
+
+                        ResultUiState.Loading -> {
+                            binding.loadingText.visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
         }
