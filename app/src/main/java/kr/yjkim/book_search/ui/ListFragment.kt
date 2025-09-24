@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.launch
 import kr.yjkim.book_search.R
 import kr.yjkim.book_search.adapter.BookListAdapter
 import kr.yjkim.book_search.data.BookSearchRepository
@@ -41,27 +45,31 @@ class ListFragment: Fragment() {
             findNavController().navigate(action)
         }
 
-        vm.searchResult.observe(viewLifecycleOwner) { result ->
-            result.fold(
-                onSuccess = { bookList ->
-                    if (bookList.isEmpty()) {
-                        binding.errorText.text = getString(R.string.error_no_data)
-                        binding.btnTryAgain.visibility = View.INVISIBLE
-                        binding.layError.visibility = View.VISIBLE
-                    } else {
-                        binding.layError.visibility = View.GONE
-                        adapter.submitList(bookList)
-                    }
-                },
-                onFailure = { e ->
-                    binding.errorText.text = when (e) {
-                        is IOException -> getString(R.string.error_network)
-                        is HttpException -> getString(R.string.error_server)
-                        else -> getString(R.string.error_unknown)
-                    }
-                    binding.btnTryAgain.visibility = View.VISIBLE
-                    binding.layError.visibility = View.VISIBLE
-                })
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                vm.searchResult.collect { result ->
+                    result.fold(
+                        onSuccess = { bookList ->
+                            if (bookList.isEmpty()) {
+                                binding.errorText.text = getString(R.string.error_no_data)
+                                binding.btnTryAgain.visibility = View.INVISIBLE
+                                binding.layError.visibility = View.VISIBLE
+                            } else {
+                                binding.layError.visibility = View.GONE
+                                adapter.submitList(bookList)
+                            }
+                        },
+                        onFailure = { e ->
+                            binding.errorText.text = when (e) {
+                                is IOException -> getString(R.string.error_network)
+                                is HttpException -> getString(R.string.error_server)
+                                else -> getString(R.string.error_unknown)
+                            }
+                            binding.btnTryAgain.visibility = View.VISIBLE
+                            binding.layError.visibility = View.VISIBLE
+                        })
+                }
+            }
         }
 
         val toolbarTitleText = getString(R.string.toolbar_list_title, args.keyword)
