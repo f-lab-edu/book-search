@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -47,8 +46,8 @@ class ListFragment: Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.searchResult.collect { uiState ->
+            vm.searchResult.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect { uiState ->
                     when (uiState) {
                         is ResultUiState.Success -> {
                             val bookList = uiState.bookList
@@ -79,7 +78,6 @@ class ListFragment: Fragment() {
                         }
                     }
                 }
-            }
         }
 
         val toolbarTitleText = getString(R.string.toolbar_list_title, args.keyword)
