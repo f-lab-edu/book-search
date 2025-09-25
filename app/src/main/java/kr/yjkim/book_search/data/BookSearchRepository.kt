@@ -3,6 +3,7 @@ package kr.yjkim.book_search.data
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kr.yjkim.book_search.data.network.KakaoService
 import kr.yjkim.book_search.data.network.RetrofitClient
 import kr.yjkim.book_search.util.ResultUiState
@@ -12,7 +13,7 @@ object BookSearchRepository {
     private val kakaoService: KakaoService = RetrofitClient.kakaoService
 
     private val _searchResult: MutableStateFlow<ResultUiState> = MutableStateFlow(ResultUiState.Loading)
-    val searchResult: StateFlow<ResultUiState> get() = _searchResult
+    val searchResult: StateFlow<ResultUiState> get() = _searchResult.asStateFlow()
 
     suspend fun searchKeyword(keyword: String) {
         _searchResult.value = ResultUiState.Loading
