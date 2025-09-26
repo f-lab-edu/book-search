@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.databinding.FragmentHomeBinding
 import kr.yjkim.book_search.extension.hideKeyboard
 
@@ -21,9 +20,8 @@ class HomeFragment: Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val vm: HomeViewModel by viewModels {
-        HomeViewModel.create(BookSearchRepository)
-    }
+
+    private val vm: HomeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
