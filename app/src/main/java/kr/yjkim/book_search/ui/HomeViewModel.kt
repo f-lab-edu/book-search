@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kr.yjkim.book_search.data.BookSearchRepository
 
+@HiltViewModel
 class HomeViewModel(private val repository: BookSearchRepository): ViewModel() {
 
     private val _keyword: MutableStateFlow<String> = MutableStateFlow("")

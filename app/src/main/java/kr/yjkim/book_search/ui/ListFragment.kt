@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kr.yjkim.book_search.R
 import kr.yjkim.book_search.adapter.BookListAdapter
@@ -22,6 +23,7 @@ import kr.yjkim.book_search.util.ResultUiState
 import okio.IOException
 import retrofit2.HttpException
 
+@AndroidEntryPoint
 class ListFragment: Fragment() {
 
     private var _binding: FragmentListBinding? = null

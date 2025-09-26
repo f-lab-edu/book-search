@@ -5,11 +5,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.util.ResultUiState
 
+@HiltViewModel
 class ListViewModel(private val repository: BookSearchRepository): ViewModel() {
 
     val searchResult: StateFlow<ResultUiState> = repository.searchResult

@@ -10,11 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kr.yjkim.book_search.data.BookSearchRepository
 import kr.yjkim.book_search.databinding.FragmentHomeBinding
 import kr.yjkim.book_search.extension.hideKeyboard
 
+@AndroidEntryPoint
 class HomeFragment: Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

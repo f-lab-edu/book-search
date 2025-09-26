@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil3.load
+import dagger.hilt.android.AndroidEntryPoint
 import kr.yjkim.book_search.databinding.FragmentInfoBinding
 
+@AndroidEntryPoint
 class InfoFragment: Fragment() {
 
     private var _binding: FragmentInfoBinding? = null
