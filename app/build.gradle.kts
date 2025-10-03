@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.navigation.safeArgs)
     id("kotlin-kapt")
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 val localProperties = Properties().apply {
@@ -73,4 +75,7 @@ dependencies {
     implementation(libs.bundles.coil)
     // RecyclerView
     implementation(libs.androidx.recyclerview)
+    // Hilt
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 }

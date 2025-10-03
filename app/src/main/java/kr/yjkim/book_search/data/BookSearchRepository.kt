@@ -5,12 +5,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kr.yjkim.book_search.data.network.KakaoService
-import kr.yjkim.book_search.data.network.RetrofitClient
 import kr.yjkim.book_search.util.ResultUiState
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object BookSearchRepository {
-
-    private val kakaoService: KakaoService = RetrofitClient.kakaoService
+@Singleton
+class BookSearchRepository @Inject constructor(private val kakaoService: KakaoService) {
 
     private val _searchResult: MutableStateFlow<ResultUiState> = MutableStateFlow(ResultUiState.Loading)
     val searchResult: StateFlow<ResultUiState> get() = _searchResult.asStateFlow()
